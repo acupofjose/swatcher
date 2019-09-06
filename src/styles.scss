@@ -1,0 +1,120 @@
+@import '~@sweetalert2/theme-dark/dark.scss';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #1e1e1e;
+}
+
+html, body, input {
+  font-family: 'Raleway', sans-serif;
+}
+
+.App {
+  display: block;
+  font-family: sans-serif;
+  text-align: center;
+  width: 90%;
+  max-width: 650px;
+  margin: 35px auto;
+}
+
+.wrapper {
+  .upper {
+    display: flex;
+    flex-direction: row;
+
+    .title-input {
+      flex: 2;
+      text-align: left;
+
+      input {
+        width: 100%;
+        height: 36px;
+        font-size: 28px;
+        background: none;
+        color: #d9d9d9;
+        border: none;
+        border-bottom: 2px solid #d9d9d9;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex: 1;
+      height: 38px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      height: 32px;
+      font-size: 28px;
+      color: #f9f9f9;
+      border: none;
+      border-radius: 25px;
+      margin: 0 5px;
+      box-sizing: border-box;
+    
+      &.btn-export {
+        background-color: transparent;
+        color: #2196F3;
+      }
+    
+      &.btn-import {
+        background-color: transparent;
+        color: #F44336;
+      }
+    
+      &.btn-save {
+        background-color: transparent;
+        color: #607D8B;
+      }
+    }
+    
+  }
+  .sketch-picker {
+    box-sizing: border-box !important;
+    &.disabled {
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        top:0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #1e1e1e;
+        opacity: 0.5;
+        z-index: 100;
+      }
+    }
+  }
+}
+
+
+.color-blocks {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 15px 0;
+  box-sizing: border-box;
+
+  .color-block {
+    display: block;
+    width: 10%;
+    height: 75px;
+    box-sizing: border-box;
+    transition: border 0.15s ease-in-out;
+    border: 5px solid #1e1e1e;
+
+    &.selected,
+    &:hover {
+      border: 5px solid white;
+    }
+  }
+}
