@@ -6,10 +6,11 @@ import { DefaultPageContext } from "../context/defaultPage";
 import ColorBlocks from "../components/colorBlocks";
 import RegenerateButton from "../components/regenerateButton";
 import UploadImageButton from "../components/uploadImageButton";
-import UploadPaletteButton from "../components/uploadPaletteButton";
 import ExportButton from "../components/exportButton";
 import SaveButton from "../components/saveButton";
 import { GlobalContext } from "../context/global";
+
+const defaultSwatchName = "Untitled Swatch";
 
 class DefaultPage extends React.Component {
   constructor(props) {
@@ -75,6 +76,18 @@ class DefaultPage extends React.Component {
   handleNameChange = e =>
     this.setState({ ...this.state, name: e.target.value });
 
+  handleNameFocus = e => {
+    if (e.target.value === defaultSwatchName) {
+      this.setState({ ...this.state, name: "" });
+    }
+  };
+
+  handleNameOnBlur = e => {
+    if (e.target.value === "") {
+      this.setState({ ...this.state, name: null });
+    }
+  };
+
   render() {
     return (
       <DefaultPageContext.Provider value={this.state}>
@@ -83,7 +96,11 @@ class DefaultPage extends React.Component {
             <div className="title-input">
               <input
                 type="text"
-                value={this.state.name ? this.state.name : "Untitled Swatch"}
+                value={
+                  this.state.name !== null ? this.state.name : defaultSwatchName
+                }
+                onFocus={this.handleNameFocus}
+                onBlur={this.handleNameOnBlur}
                 onChange={this.handleNameChange}
               />
             </div>

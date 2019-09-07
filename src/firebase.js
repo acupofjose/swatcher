@@ -16,6 +16,7 @@ var firebaseConfig = {
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
+  firebase.auth().signInAnonymously();
 }
 
 const swatchCollection = firebase.firestore().collection("swatches");
@@ -24,9 +25,12 @@ export const SavePalette = async (name = "Untitled Palette", colors) => {
   const key = getRandomReadableString();
   try {
     await swatchCollection.add({
+      userId: firebase.auth().currentUser.uid,
       key,
       name,
-      colors
+      colors,
+      createdAt: new Date(),
+      updatedAt: new Date()
     });
     return key;
   } catch (err) {

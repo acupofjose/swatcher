@@ -4,7 +4,7 @@ const Header = function() {
   return (
     <header role="main">
       <h1>Swatcher.</h1>
-      <p>Making swatches should be easy. Now it is.</p>
+      <p>Making procreate swatches should be easy. Now it is.</p>
     </header>
   );
 };
