@@ -4,7 +4,8 @@ import { SketchPicker } from "react-color";
 import { DefaultPageContext } from "../context/defaultPage";
 
 import ColorBlocks from "../components/colorBlocks";
-import ImportButton from "../components/importButton";
+import UploadImageButton from "../components/uploadImageButton";
+import UploadPaletteButton from "../components/uploadPaletteButton";
 import ExportButton from "../components/exportButton";
 import SaveButton from "../components/saveButton";
 
@@ -14,11 +15,17 @@ class DefaultPage extends React.Component {
     this.selectedBlock = null;
     this.state = {
       name: "Untitled Swatch",
+      blocks: [],
+      blockRefs: {},
+      setBlocks: this.setBlocks,
       selectedColor: "",
       selectedBlockId: null,
       setSelectedBlock: this.setSelectedBlock
     };
   }
+
+  setBlocks = (blocks, blockRefs) =>
+    this.setState({ ...this.state, blocks, blockRefs });
 
   setSelectedBlock = selectedBlock => {
     if (this.selectedBlock) this.selectedBlock.deselect();
@@ -31,7 +38,11 @@ class DefaultPage extends React.Component {
     }
 
     this.selectedBlock = selectedBlock;
-    this.setState({ ...this.state, selectedBlockId: selectedBlock.props.id });
+    this.setState({
+      ...this.state,
+      selectedBlockId: selectedBlock.props.id,
+      selectedColor: selectedBlock.getColor()
+    });
   };
 
   handleColorPickerChange = color =>
@@ -53,7 +64,8 @@ class DefaultPage extends React.Component {
               />
             </div>
             <div className="buttons">
-              <ImportButton />
+              <UploadImageButton />
+              <UploadPaletteButton />
               <ExportButton />
               <SaveButton />
             </div>

@@ -65,9 +65,14 @@ html, body, input {
         color: #2196F3;
       }
     
-      &.btn-import {
+      &.btn-upload-palette {
         background-color: transparent;
         color: #F44336;
+      }
+
+      &.btn-upload-image {
+        background-color:transparent;
+        color: #F8E71C;
       }
     
       &.btn-save {
@@ -117,4 +122,8 @@ html, body, input {
       border: 5px solid white;
     }
   }
+}
+
+.rc-tooltip-inner {
+  min-height: auto !important;
 }

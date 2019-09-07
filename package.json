@@ -11,6 +11,7 @@
     "color": "3.1.2",
     "lodash": "4.17.15",
     "node-sass": "4.12.0",
+    "rc-tooltip": "3.7.3",
     "react": "16.8.6",
     "react-color": "2.17.3",
     "react-dom": "16.8.6",
@@ -28,5 +29,10 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

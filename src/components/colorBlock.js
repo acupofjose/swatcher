@@ -17,6 +17,8 @@ class ColorBlock extends React.Component {
     this.context.setSelectedBlock(this);
   };
 
+  getColor = () => this.state.color;
+
   deselect = () => this.setState({ ...this.state, isSelected: false });
 
   render() {

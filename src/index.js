@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import { GlobalContext } from "./context/global";
 import DefaultPage from "./pages/DefaultPage";
 
+import "rc-tooltip/assets/bootstrap.css";
 import "./styles.scss";
 
 class App extends React.Component {

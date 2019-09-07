@@ -2,20 +2,15 @@ import React from "react";
 import Axios from "axios";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import withReactContent from "sweetalert2-react-content";
+import Tooltip from "rc-tooltip";
 
 const ReactSwal = withReactContent(Swal);
 
-const ImportButton = function() {
+const UploadPaletteButton = function() {
   const handleImportRequest = fileInput => {
     const formData = new FormData();
     const headers = { headers: { "Content-Type": "multipart/form-data" } };
     formData.append("file", fileInput.files[0]);
-    return axios
-      .post("https://swatcher.acupajoe.io/api/v1/parse/", formData, headers)
-      .then(result => {
-        console.log(result);
-      })
-      .catch(err => console.error(err));
   };
 
   const handleImportBtnClick = async e => {
@@ -31,10 +26,15 @@ const ImportButton = function() {
   };
 
   return (
-    <button className="btn btn-import" onClick={handleImportBtnClick}>
-      <i className="fad fa-file-upload" />
-    </button>
+    <Tooltip
+      placement="bottom"
+      trigger={["hover"]}
+      overlay={<span>Upload Palette</span>}>
+      <button className="btn btn-upload-palette" onClick={handleImportBtnClick}>
+        <i className="fad fa-file-upload" />
+      </button>
+    </Tooltip>
   );
 };
 
-export default ImportButton;
+export default UploadPaletteButton;
