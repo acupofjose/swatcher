@@ -11,16 +11,25 @@ class UploadImageButton extends React.Component {
   handleImportRequest = async file => {
     const colors = await UploadImage(file);
     this.context.setColors(colors);
-    ReactSwal.close();
   };
 
   handleImportBtnClick = async e => {
     await ReactSwal.fire({
-      title: "Upload",
+      title: "Upload Image",
       input: "file",
       preConfirm: i => {
+        ReactSwal.disableButtons();
         const file = document.querySelector("input[type=file]");
-        this.handleImportRequest(file.files[0]);
+        this.handleImportRequest(file.files[0])
+          .then(() => {
+            ReactSwal.close();
+          })
+          .catch(err => {
+            ReactSwal.fire({
+              title: "Error",
+              text: "Unable to upload file..."
+            });
+          });
         return false;
       }
     });

@@ -14,7 +14,17 @@ p {
   font-family: 'Open Sans', sans-serif;
 }
 
+header {
+  padding: 15px 0;
+  margin-bottom: 15px;
+  h1, p {
+    color: #e9e9e9;
+    margin: 0;
+  }
+}
+
 footer {
+  width: 100%;
   margin-top: 15px;
   p {margin: 0;}
   a { color: #e9e9e9; }
@@ -30,12 +40,18 @@ footer {
 }
 
 .App {
+  position: relative;
   display: block;
+  box-sizing: border-box;
   font-family: sans-serif;
   text-align: center;
   width: 90%;
   max-width: 650px;
-  margin: 35px auto;
+  margin: 0 auto 35px auto;
+  background: rgba(51,51,51, 0.85);
+  padding: 15px;
+  z-index: 100;
+  min-height: 100vh;
 }
 
 .wrapper {
@@ -138,7 +154,7 @@ footer {
     height: 75px;
     box-sizing: border-box;
     transition: border 0.15s ease-in-out;
-    border: 5px solid #1e1e1e;
+    border: 5px solid #333;
 
     &.selected,
     &:hover {
@@ -242,4 +258,14 @@ footer {
       }
     }
   }
+}
+
+.background {
+  position: fixed;
+  height: 75vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  background: tomato;
+  transform: translateY(-25vh) skew(0, 10deg);
 }

@@ -20,9 +20,8 @@ if (!firebase.apps.length) {
 
 const swatchCollection = firebase.firestore().collection("swatches");
 
-export const SavePalette = async (name, colors) => {
+export const SavePalette = async (name = "Untitled Palette", colors) => {
   const key = getRandomReadableString();
-  console.log(colors);
   try {
     await swatchCollection.add({
       key,

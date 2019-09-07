@@ -4,11 +4,12 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { GlobalContext } from "./context/global";
 import DefaultPage from "./pages/DefaultPage";
-
-import "rc-tooltip/assets/bootstrap.css";
-import "./styles.scss";
-import Loader from "./components/loader";
+import Header from "./components/header";
 import Footer from "./components/footer";
+import Loader from "./components/loader";
+
+import "./styles.scss";
+import "rc-tooltip/assets/bootstrap.css";
 
 require("./firebase");
 
@@ -30,6 +31,7 @@ class App extends React.Component {
       <GlobalContext.Provider value={this.state}>
         <div className="App">
           <div className="wrapper">
+            <Header />
             <Router>
               {this.conditionalLoader()}
               <Route path="/" exact component={DefaultPage} />
@@ -38,6 +40,7 @@ class App extends React.Component {
             <Footer />
           </div>
         </div>
+        <div className="background" />
       </GlobalContext.Provider>
     );
   }
