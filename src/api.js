@@ -1,3 +1,6 @@
+import Axios from "axios";
+import Color from "color";
+
 const isProduction = process.env.NODE_ENV === "production";
 const API_HOST = isProduction
   ? "https://swatcher.acupajoe.io"
@@ -17,7 +20,20 @@ function buildUrl(url, parameters) {
   return url;
 }
 
-export const UploadImage = fileDescriptor => {};
+export const UploadImage = async fileDescriptor => {
+  const data = new FormData();
+  data.set("file", fileDescriptor);
+
+  const config = { headers: { "Content-Type": "multipart/form-data" } };
+  const response = await Axios.post(`${API_URL}/upload/image`, data, config);
+
+  const results = [];
+  for (const item of Object.values(response.data)) {
+    results.push(Color.rgb(item.rgb));
+  }
+
+  return results;
+};
 export const UploadPalette = fileDescriptor => {};
 export const GetExportPaletteUrl = (name, colors) => {
   const data = { name, colors: JSON.stringify(colors) };

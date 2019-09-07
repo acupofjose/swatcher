@@ -4,25 +4,49 @@ import { SketchPicker } from "react-color";
 import { DefaultPageContext } from "../context/defaultPage";
 
 import ColorBlocks from "../components/colorBlocks";
+import RegenerateButton from "../components/regenerateButton";
 import UploadImageButton from "../components/uploadImageButton";
 import UploadPaletteButton from "../components/uploadPaletteButton";
 import ExportButton from "../components/exportButton";
 import SaveButton from "../components/saveButton";
+import { GlobalContext } from "../context/global";
 
 class DefaultPage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.blockContainerRef = null;
     this.selectedBlock = null;
-    this.state = {
-      name: "Untitled Swatch",
+    this.defaultState = {
+      params: props.match.params,
+      name: null,
+      setName: this.setName,
       blocks: [],
       blockRefs: {},
       setBlocks: this.setBlocks,
       selectedColor: "",
       selectedBlockId: null,
-      setSelectedBlock: this.setSelectedBlock
+      setSelectedBlock: this.setSelectedBlock,
+      setIsLoading: isLoading => this.context.setIsLoading(isLoading),
+      readOnly: false,
+      setReadOnly: this.setReadOnly,
+      reset: this.reset,
+      setColors: this.setColors
     };
+
+    this.state = { ...this.defaultState };
   }
+
+  reset = () => {
+    this.setState({ name: null, selectedBlockId: null });
+    if (this.blockContainerRef) this.blockContainerRef.regenerateColors();
+  };
+
+  setColors = arr => this.blockContainerRef.setColors(arr);
+
+  setName = name => this.setState({ ...this.state, name });
+
+  setReadOnly = readOnly => this.setState({ ...this.state, readOnly });
 
   setBlocks = (blocks, blockRefs) =>
     this.setState({ ...this.state, blocks, blockRefs });
@@ -59,18 +83,18 @@ class DefaultPage extends React.Component {
             <div className="title-input">
               <input
                 type="text"
-                placeholder={this.state.name}
+                value={this.state.name ? this.state.name : "Untitled Swatch"}
                 onChange={this.handleNameChange}
               />
             </div>
             <div className="buttons">
+              <RegenerateButton />
               <UploadImageButton />
-              <UploadPaletteButton />
               <ExportButton />
               <SaveButton />
             </div>
           </div>
-          <ColorBlocks />
+          <ColorBlocks ref={r => (this.blockContainerRef = r)} />
           <div className="lower">
             <div className="picker">
               <SketchPicker
@@ -87,4 +111,5 @@ class DefaultPage extends React.Component {
   }
 }
 
+DefaultPage.contextType = GlobalContext;
 export default DefaultPage;

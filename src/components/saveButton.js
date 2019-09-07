@@ -1,17 +1,63 @@
 import React from "react";
 import Tooltip from "rc-tooltip";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import withReactContent from "sweetalert2-react-content";
 
-const SaveButton = function() {
-  return (
-    <Tooltip
-      placement="bottom"
-      trigger={["hover"]}
-      overlay={<span>Save Palette</span>}>
-      <button className="btn btn-save">
-        <i className="fad fa-save" />
-      </button>
-    </Tooltip>
-  );
-};
+import { DefaultPageContext } from "../context/defaultPage";
+import { SavePalette } from "../firebase";
 
+const ReactSwal = withReactContent(Swal);
+
+class SaveButton extends React.Component {
+  handleOnClick = async () => {
+    try {
+      const colors = [];
+      for (const block of Object.values(this.context.blockRefs)) {
+        colors.push(block.state.color);
+      }
+      const key = await SavePalette(this.context.name, colors);
+
+      ReactSwal.fire({
+        title: "Success",
+        type: "success",
+        html: (
+          <div>
+            <p>
+              Your Palette can be found at: <a href={`/p/${key}`}>{key}</a>
+            </p>
+          </div>
+        )
+      });
+    } catch (e) {
+      ReactSwal.fire({
+        title: "Error",
+        type: "error",
+        html: (
+          <div>
+            <p>
+              Whoops! Looks like we weren't able to save that one. You can still
+              download it though! Use the buttons at the top and we'll get right
+              fixing this issue.
+            </p>
+          </div>
+        )
+      });
+    }
+  };
+
+  render() {
+    return (
+      <Tooltip
+        placement="bottom"
+        trigger={["hover"]}
+        overlay={<span>Save Palette</span>}>
+        <button className="btn btn-save" onClick={this.handleOnClick}>
+          <i className="fad fa-save" />
+        </button>
+      </Tooltip>
+    );
+  }
+}
+
+SaveButton.contextType = DefaultPageContext;
 export default SaveButton;

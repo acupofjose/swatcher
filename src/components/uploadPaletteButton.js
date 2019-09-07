@@ -1,16 +1,15 @@
 import React from "react";
 import Axios from "axios";
+import Tooltip from "rc-tooltip";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import withReactContent from "sweetalert2-react-content";
-import Tooltip from "rc-tooltip";
+import { UploadImage } from "../api";
 
 const ReactSwal = withReactContent(Swal);
 
 const UploadPaletteButton = function() {
-  const handleImportRequest = fileInput => {
-    const formData = new FormData();
-    const headers = { headers: { "Content-Type": "multipart/form-data" } };
-    formData.append("file", fileInput.files[0]);
+  const handleImportRequest = async fileInput => {
+    await UploadImage(fileInput.files[0]);
   };
 
   const handleImportBtnClick = async e => {
@@ -19,7 +18,7 @@ const UploadPaletteButton = function() {
       input: "file",
       preConfirm: i => {
         const file = document.querySelector("input[type=file]");
-        handleImportRequest(file).then(() => ReactSwal.close());
+        handleImportRequest(file);
         return false;
       }
     });

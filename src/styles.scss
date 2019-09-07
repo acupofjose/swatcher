@@ -10,6 +10,25 @@ html, body, input {
   font-family: 'Raleway', sans-serif;
 }
 
+p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+footer {
+  margin-top: 15px;
+  p {margin: 0;}
+  a { color: #e9e9e9; }
+  ul { 
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+    li { 
+      display: inline-block; 
+      margin: 0 5px;
+    }
+  }
+}
+
 .App {
   display: block;
   font-family: sans-serif;
@@ -60,6 +79,11 @@ html, body, input {
       margin: 0 5px;
       box-sizing: border-box;
     
+      &.btn-regenerate {
+        background-color: transparent;
+        color: #FBFCFC;
+      }
+
       &.btn-export {
         background-color: transparent;
         color: #2196F3;
@@ -80,8 +104,8 @@ html, body, input {
         color: #607D8B;
       }
     }
-    
   }
+
   .sketch-picker {
     box-sizing: border-box !important;
     &.disabled {
@@ -100,7 +124,6 @@ html, body, input {
     }
   }
 }
-
 
 .color-blocks {
   display: flex;
@@ -126,4 +149,97 @@ html, body, input {
 
 .rc-tooltip-inner {
   min-height: auto !important;
+}
+
+
+.loader-overlay {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.8);
+
+  .grid {
+    display: inline-block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    top: 40%;
+    transform: translate(-50%);
+    
+    @keyframes grid {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+
+    p {
+      color: white;
+      width: 250px;
+      transform: translate(-50%);
+      position: relative;
+      top: 100%;
+      left: 50%;
+    }
+
+    div {
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #fff;
+      animation: grid 1.2s linear infinite;
+
+      &:nth-child(1) {
+        top: 6px;
+        left: 6px;
+        animation-delay: 0s;
+      }
+      &:nth-child(2) {
+        top: 6px;
+        left: 26px;
+        animation-delay: -0.4s;
+      }
+      &:nth-child(3) {
+        top: 6px;
+        left: 45px;
+        animation-delay: -0.8s;
+      }
+      &:nth-child(4) {
+        top: 26px;
+        left: 6px;
+        animation-delay: -0.4s;
+      }
+      &:nth-child(5) {
+        top: 26px;
+        left: 26px;
+        animation-delay: -0.8s;
+      }
+      &:nth-child(6) {
+        top: 26px;
+        left: 45px;
+        animation-delay: -1.2s;
+      }
+      &:nth-child(7) {
+        top: 45px;
+        left: 6px;
+        animation-delay: -0.8s;
+      }
+      &:nth-child(8) {
+        top: 45px;
+        left: 26px;
+        animation-delay: -1.2s;
+      }
+      &:nth-child(9) {
+        top: 45px;
+        left: 45px;
+        animation-delay: -1.6s;
+      }
+    }
+  }
 }
