@@ -1,0 +1,41 @@
+@import "../styles/variables";
+
+.RecentsPage {
+  .swatch {
+    padding: 5px;
+    a {
+      text-decoration: none;
+    }
+    .meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      h2.title {
+        flex: 1;
+        text-align: left;
+        font-size: 1.25rem;
+        margin: 0;
+      }
+      p.date {
+        flex: 1;
+        color: $white;
+        text-align: right;
+        margin: 0;
+      }
+    }
+    .divider {
+      display: block;
+      margin: 15px auto;
+      width: 50%;
+      height: 1px;
+      background: rgba($white, 0.5);
+    }
+
+    &:last-child {
+      .divider {
+        display: none;
+      }
+    }
+  }
+}

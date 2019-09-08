@@ -16,7 +16,15 @@ class SaveButton extends React.Component {
         colors.push(block.state.color);
       }
 
-      const key = await SavePalette(this.context.name, colors);
+      const key = await SavePalette(
+        this.context.name || "Untitled Swatch",
+        colors
+      );
+
+      if (!key) {
+        throw new Error("Unable to save.");
+      }
+
       const url = `https://swatcher.app/p/${key}`;
       ReactSwal.fire({
         title: "Success",
@@ -24,7 +32,10 @@ class SaveButton extends React.Component {
         html: (
           <div>
             <p>
-              Your Palette can be found at: <a href={url}>{url}</a>
+              Your Palette can be found at:{" "}
+              <pre>
+                <a href={url}>{url}</a>
+              </pre>
             </p>
           </div>
         )

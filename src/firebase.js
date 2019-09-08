@@ -47,3 +47,16 @@ export const GetPalette = async key => {
     return false;
   }
 };
+
+export const GetRecents = async (limit = 25) => {
+  try {
+    const results = await swatchCollection
+      .orderBy("createdAt", "desc")
+      .limit(limit)
+      .get();
+    return results;
+  } catch (err) {
+    console.error(err);
+    return [];
+  }
+};

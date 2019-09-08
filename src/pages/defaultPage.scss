@@ -1,0 +1,53 @@
+@import "../styles/variables";
+
+.DefaultPage {
+  .upper {
+    display: flex;
+    flex-direction: row;
+
+    .title-input {
+      flex: 2;
+      text-align: left;
+
+      input {
+        width: 100%;
+        height: 36px;
+        font-size: 28px;
+        background: none;
+        color: #d9d9d9;
+        border: none;
+        border-bottom: 2px solid $white;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      flex: 1;
+      height: 38px;
+      align-items: center;
+      justify-content: flex-end;
+    }
+  }
+
+  .sketch-picker {
+    box-sizing: border-box !important;
+    &.disabled {
+      position: relative;
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: $background-color;
+        opacity: 0.5;
+        z-index: 100;
+      }
+    }
+  }
+}

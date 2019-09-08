@@ -1,4 +1,5 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 import { SketchPicker } from "react-color";
 
 import { DefaultPageContext } from "../context/defaultPage";
@@ -9,6 +10,8 @@ import UploadImageButton from "../components/uploadImageButton";
 import ExportButton from "../components/exportButton";
 import SaveButton from "../components/saveButton";
 import { GlobalContext } from "../context/global";
+
+import "./defaultPage.scss";
 
 const defaultSwatchName = "Untitled Swatch";
 
@@ -91,7 +94,10 @@ class DefaultPage extends React.Component {
   render() {
     return (
       <DefaultPageContext.Provider value={this.state}>
-        <div className="DefaultPage">
+        <Helmet>
+          <title>{`Swatcher : ${this.state.name || defaultSwatchName}`}</title>
+        </Helmet>
+        <div className="DefaultPage" role="main">
           <div className="upper">
             <div className="title-input">
               <input

@@ -8,7 +8,9 @@ const Footer = function() {
       </p>
       <ul className="menu">
         <li>
-          <a href="https://github.com/acupajoe/swatcher">Source</a>
+          <a href="https://github.com/acupajoe/swatcher">
+            <i className="fab fa-github"></i>
+          </a>
         </li>
       </ul>
     </footer>
