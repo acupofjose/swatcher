@@ -23,8 +23,10 @@ export const getRandomReadableString = (count = 3) => {
 export const ShowToast = (type, text, autoDismiss = true) => {
   ReactSwal.fire({
     type,
-    text,
+    title: text,
+    position: "top-end",
     toast: true,
-    timer: 4000
+    timer: autoDismiss ? 4000 : false,
+    showConfirmButton: !autoDismiss
   });
 };

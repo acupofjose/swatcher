@@ -10,6 +10,7 @@ import Loader from "./components/loader";
 
 import "./styles/global.scss";
 import "rc-tooltip/assets/bootstrap.css";
+
 import RecentsPage from "./pages/recentsPage";
 
 require("./firebase");
