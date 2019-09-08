@@ -3,9 +3,9 @@ import Color from "color";
 
 const isProduction = process.env.NODE_ENV === "production";
 const API_HOST = isProduction
-  ? "https://swatcher.acupajoe.io"
+  ? "https://api.swatcher.app"
   : "http://localhost:8080";
-const API_URL = `${API_HOST}/api/v1`;
+const API_URL = `${API_HOST}/v1`;
 
 function buildUrl(url, parameters) {
   var qs = "";
