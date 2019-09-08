@@ -1,9 +1,10 @@
 {
   "name": "swatcher",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generate color palettes for Procreate.",
   "author": "Joseph Schultz <joseph@acupajoe.io>",
-  "keywords": [],
+  "license": "MIT",
+  "keywords": ["palette", "procreate", "swatches", "color", "react"],
   "main": "src/index.js",
   "dependencies": {
     "@sweetalert2/theme-dark": "2.1.0",
