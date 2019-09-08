@@ -39,6 +39,9 @@ class SaveButton extends React.Component {
             </p>
           </div>
         )
+      }).then(() => {
+        this.context.setIsDirty(false);
+        window.location.href = url;
       });
     } catch (e) {
       ReactSwal.fire({

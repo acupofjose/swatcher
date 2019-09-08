@@ -9,6 +9,9 @@ class ExportButton extends React.Component {
     for (const block of Object.values(this.context.blockRefs)) {
       colors.push(block.state.color);
     }
+
+    this.context.setIsDirty(false);
+
     window.location.href = GetExportPaletteUrl(
       this.context.name || "Untitled Swatch",
       colors

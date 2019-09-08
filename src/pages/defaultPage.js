@@ -32,25 +32,43 @@ class DefaultPage extends React.Component {
       selectedBlockId: null,
       setSelectedBlock: this.setSelectedBlock,
       setIsLoading: isLoading => this.context.setIsLoading(isLoading),
-      readOnly: false,
-      setReadOnly: this.setReadOnly,
       reset: this.reset,
-      setColors: this.setColors
+      setColors: this.setColors,
+      isDirty: false,
+      setIsDirty: this.setIsDirty
     };
 
     this.state = { ...this.defaultState };
   }
 
+  componentDidMount() {
+    window.addEventListener("beforeunload", this.beforeUnloadListener);
+  }
+
+  beforeUnloadListener = e => {
+    if (!this.state.isDirty) {
+      return undefined;
+    }
+
+    const confirmationMessage = `You have unsaved changes. Are you sure you want to leave?`;
+    const ev = e || window.event;
+    ev.returnValue = confirmationMessage;
+    return confirmationMessage;
+  };
+
   reset = () => {
-    this.setState({ name: null, selectedBlockId: null });
+    this.setState({ name: null, selectedBlockId: null, isDirty: false });
     if (this.blockContainerRef) this.blockContainerRef.regenerateColors();
   };
 
-  setColors = arr => this.blockContainerRef.setColors(arr);
+  setColors = arr => {
+    this.setState({ ...this.state, isDirty: true });
+    this.blockContainerRef.setColors(arr);
+  };
 
-  setName = name => this.setState({ ...this.state, name });
+  setIsDirty = isDirty => this.setState({ ...this.state, isDirty: isDirty });
 
-  setReadOnly = readOnly => this.setState({ ...this.state, readOnly });
+  setName = name => this.setState({ ...this.state, name, isDirty: true });
 
   setBlocks = (blocks, blockRefs) =>
     this.setState({ ...this.state, blocks, blockRefs });
@@ -73,11 +91,16 @@ class DefaultPage extends React.Component {
     });
   };
 
-  handleColorPickerChange = color =>
-    this.selectedBlock.setState({ ...this.selectedBlock, color: color.hex });
+  handleColorPickerChange = color => {
+    this.setState({ ...this.state, isDirty: true });
+    this.selectedBlock.setState({
+      ...this.selectedBlock,
+      color: color.hex
+    });
+  };
 
   handleNameChange = e =>
-    this.setState({ ...this.state, name: e.target.value });
+    this.setState({ ...this.state, name: e.target.value, isDirty: true });
 
   handleNameFocus = e => {
     if (e.target.value === defaultSwatchName) {
