@@ -29,7 +29,7 @@ class ColorBlocks extends React.Component {
         const id = `ColorBlock-${row}-${col}`;
         if (counter + 1 > arr.length) {
           const shouldLighten = Math.random() >= 0.5;
-          const amount = Math.random();
+          const amount = (Math.random() * 50) / 100;
           const color = sample(arr);
           const result = shouldLighten
             ? color.lighten(amount)
@@ -52,7 +52,7 @@ class ColorBlocks extends React.Component {
       for (let col = 0; col < cols; col++) {
         const id = `ColorBlock-${row}-${col}`;
         const shouldLighten = Math.random() >= 0.5;
-        const amount = Math.random();
+        const amount = (Math.random() * 50) / 100;
         baseColor = shouldLighten
           ? baseColor.lighten(amount)
           : baseColor.darken(amount);
