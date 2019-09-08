@@ -50,6 +50,11 @@ header {
     width: calc(100% + 30px);
     height: 32px;
 
+    @include respond-below(sm) {
+      top: -25px;
+      height: 50px;
+    }
+
     a {
       flex: 1;
       text-decoration: none;
@@ -58,6 +63,9 @@ header {
       background-color: rgba($background-color, 0.5);
       &.active {
         background-color: transparent;
+      }
+      @include respond-below(sm) {
+        background-color: lighten($background-color, 10%);
       }
     }
   }
@@ -97,6 +105,12 @@ footer {
   padding: 15px;
   z-index: 100;
   min-height: 100vh;
+
+  @include respond-below(sm) {
+    width: 100%;
+    padding: 15px 10px;
+    background: $background-color;
+  }
 }
 
 .color-blocks {
@@ -117,6 +131,10 @@ footer {
     &.selected,
     &:hover {
       border: 5px solid $white;
+    }
+
+    @include respond-below(sm) {
+      height: 40px;
     }
   }
 }
@@ -269,6 +287,12 @@ footer {
   right: 5px;
   z-index: 100;
   padding: 15px 10px;
+
+  @include respond-below(md) {
+    position: static;
+    text-align: center;
+    z-index: 1000;
+  }
 }
 
 .bmc-button img {

@@ -34,19 +34,6 @@ class App extends React.Component {
         <Helmet>
           <title>Swatcher</title>
         </Helmet>
-        <div className="floating-links">
-          <a
-            className="bmc-button"
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.buymeacoffee.com/acupajoe">
-            <img
-              src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/BMC-btn-logo.svg"
-              alt="Buy me a coffee"
-            />
-            <span style={{ marginLeft: "5px" }}>Buy me a coffee</span>
-          </a>
-        </div>
         <div className="App">
           <div className="wrapper">
             <Router>
