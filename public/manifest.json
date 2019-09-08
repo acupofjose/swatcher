@@ -1,0 +1,7 @@
+{
+  "name": "Swatcher",
+  "short_name": "Swatcher",
+  "display": "standalone",
+  "start_url": "https://swatcher.app",
+  "lang": "en"
+}
