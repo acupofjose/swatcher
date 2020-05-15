@@ -38,7 +38,7 @@ export const SavePalette = async (name = "Untitled Palette", colors) => {
   }
 };
 
-export const GetPalette = async key => {
+export const GetPalette = async (key) => {
   try {
     const result = await swatchCollection.where("key", "==", key).get();
     return result ? result.docs[0] : false;
@@ -48,12 +48,21 @@ export const GetPalette = async key => {
   }
 };
 
-export const GetRecents = async (limit = 25) => {
+export const GetRecents = async (limit = 25, startAfter = null) => {
   try {
-    const results = await swatchCollection
-      .orderBy("createdAt", "desc")
-      .limit(limit)
-      .get();
+    let results = null;
+    if (startAfter) {
+      results = await swatchCollection
+        .orderBy("createdAt", "desc")
+        .startAfter(startAfter)
+        .limit(limit)
+        .get();
+    } else {
+      results = await swatchCollection
+        .orderBy("createdAt", "desc")
+        .limit(limit)
+        .get();
+    }
     return results;
   } catch (err) {
     console.error(err);

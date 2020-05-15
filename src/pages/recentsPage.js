@@ -8,6 +8,8 @@ import { GetExportPaletteUrl } from "../api";
 
 import "./recentsPage.scss";
 
+const defaultTitle = "Untitled Swatch";
+
 class RecentsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -25,13 +27,16 @@ class RecentsPage extends React.Component {
 
   getRecents = async () => {
     this.context.setIsLoading(true);
-    const result = await GetRecents(
-      this.state.perPage,
-      this.state.page * this.state.perPage
-    );
 
-    this.setState({ ...this.state, items: result.docs });
+    const result = await GetRecents(this.state.perPage);
+    if (!result.empty) {
+      this.setState({ ...this.state, items: result.docs });
+    }
     this.context.setIsLoading(false);
+  };
+
+  nextPage = () => {
+    this.getRecents(this.state.page + 1);
   };
 
   handleQuickExport = (name, colors) => {
@@ -52,17 +57,19 @@ class RecentsPage extends React.Component {
         );
       }
 
+      const title = doc.data().name;
       result.push(
         <div key={doc.id} className="swatch">
           <div className="meta">
             <a href={`/p/${doc.data().key}`}>
-              <h2 className="title">{doc.data().name}</h2>
+              <h2 className="title">
+                {title !== defaultTitle
+                  ? title
+                  : doc.data().key.replace(/-/g, " ")}
+              </h2>
             </a>
             <p className="date">
-              {doc
-                .data()
-                .createdAt.toDate()
-                .toLocaleString()}
+              {doc.data().createdAt.toDate().toLocaleString()}
             </p>
             <Tooltip trigger={["hover"]} overlay={<span>Quick Export</span>}>
               <button

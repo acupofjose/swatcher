@@ -31,7 +31,7 @@ class DefaultPage extends React.Component {
       selectedColor: "",
       selectedBlockId: null,
       setSelectedBlock: this.setSelectedBlock,
-      setIsLoading: isLoading => this.context.setIsLoading(isLoading),
+      setIsLoading: (isLoading) => this.context.setIsLoading(isLoading),
       reset: this.reset,
       setColors: this.setColors,
       isDirty: false,
@@ -45,7 +45,7 @@ class DefaultPage extends React.Component {
     window.addEventListener("beforeunload", this.beforeUnloadListener);
   }
 
-  beforeUnloadListener = e => {
+  beforeUnloadListener = (e) => {
     if (!this.state.isDirty) {
       return undefined;
     }
@@ -61,19 +61,19 @@ class DefaultPage extends React.Component {
     if (this.blockContainerRef) this.blockContainerRef.regenerateColors();
   };
 
-  setColors = arr => {
+  setColors = (arr) => {
     this.setState({ ...this.state, isDirty: true });
     this.blockContainerRef.setColors(arr);
   };
 
-  setIsDirty = isDirty => this.setState({ ...this.state, isDirty: isDirty });
+  setIsDirty = (isDirty) => this.setState({ ...this.state, isDirty: isDirty });
 
-  setName = name => this.setState({ ...this.state, name, isDirty: true });
+  setName = (name) => this.setState({ ...this.state, name, isDirty: true });
 
   setBlocks = (blocks, blockRefs) =>
     this.setState({ ...this.state, blocks, blockRefs });
 
-  setSelectedBlock = selectedBlock => {
+  setSelectedBlock = (selectedBlock) => {
     if (this.selectedBlock) this.selectedBlock.deselect();
 
     // Handle double clicking a single block (a deselect)
@@ -91,7 +91,7 @@ class DefaultPage extends React.Component {
     });
   };
 
-  handleColorPickerChange = color => {
+  handleColorPickerChange = (color) => {
     this.setState({ ...this.state, isDirty: true });
     this.selectedBlock.setState({
       ...this.selectedBlock,
@@ -99,22 +99,30 @@ class DefaultPage extends React.Component {
     });
   };
 
-  handleNameChange = e =>
+  handleNameChange = (e) =>
     this.setState({ ...this.state, name: e.target.value, isDirty: true });
 
-  handleNameFocus = e => {
+  handleNameFocus = (e) => {
     if (e.target.value === defaultSwatchName) {
       this.setState({ ...this.state, name: "" });
     }
   };
 
-  handleNameOnBlur = e => {
+  handleNameOnBlur = (e) => {
     if (e.target.value === "") {
       this.setState({ ...this.state, name: null });
     }
   };
 
   render() {
+    const currentName = this.state.name;
+    const displayName =
+      currentName !== null
+        ? currentName !== defaultSwatchName
+          ? currentName
+          : this.props.match.params.key.replace(/-/g, " ")
+        : defaultSwatchName;
+
     return (
       <DefaultPageContext.Provider value={this.state}>
         <Helmet>
@@ -125,9 +133,7 @@ class DefaultPage extends React.Component {
             <div className="title-input">
               <input
                 type="text"
-                value={
-                  this.state.name !== null ? this.state.name : defaultSwatchName
-                }
+                value={displayName}
                 onFocus={this.handleNameFocus}
                 onBlur={this.handleNameOnBlur}
                 onChange={this.handleNameChange}
@@ -140,7 +146,7 @@ class DefaultPage extends React.Component {
               <SaveButton />
             </div>
           </div>
-          <ColorBlocks ref={r => (this.blockContainerRef = r)} />
+          <ColorBlocks ref={(r) => (this.blockContainerRef = r)} />
           <div className="lower">
             <div className="picker">
               <SketchPicker

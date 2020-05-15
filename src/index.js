@@ -24,7 +24,7 @@ class App extends React.Component {
     };
   }
 
-  setIsLoading = isLoading => this.setState({ ...this.state, isLoading });
+  setIsLoading = (isLoading) => this.setState({ ...this.state, isLoading });
 
   conditionalLoader = () => (this.state.isLoading ? <Loader /> : null);
 
@@ -51,7 +51,7 @@ class App extends React.Component {
                   </NavLink>
                 </nav>
                 <h1>Swatcher.</h1>
-                <p>Making procreate swatches should be easy. Now it is.</p>
+                <p>Making procreate swatches should be easier. Now it is.</p>
               </header>
               {this.conditionalLoader()}
               <Route path="/recents" exact component={RecentsPage} />
